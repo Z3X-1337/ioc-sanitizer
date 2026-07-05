@@ -1,30 +1,61 @@
 # IOC Sanitizer
 
-Extract, defang, and refang common indicators of compromise from text.
+IOC Sanitizer is a defensive Python command-line utility for extracting, normalizing, defanging, and refanging common indicators of compromise.
 
-This is a defensive blue-team utility for safely sharing suspicious domains, URLs, IP addresses, hashes, and email addresses in reports.
+It is designed for safe reporting workflows where analysts need to share suspicious URLs, domains, IP addresses, email addresses, and hashes without accidentally creating clickable or active indicators.
+
+## Supported Indicators
+
+- URLs
+- Domains
+- IPv4 addresses
+- Email addresses
+- MD5 hashes
+- SHA1 hashes
+- SHA256 hashes
 
 ## Features
 
-- Extracts IPv4 addresses, domains, URLs, emails, MD5, SHA1, and SHA256 hashes.
-- Defangs indicators for safe sharing.
-- Refangs defanged indicators back into usable form.
-- Runs without third-party dependencies.
+- Produces structured JSON output by default.
+- Supports grouped JSON and text output.
+- Defangs indicators for safe reports.
+- Refangs indicators when a standard representation is needed.
+- Deduplicates case-insensitive URL, email, and domain matches.
+- Avoids duplicate domain extraction when the domain is already part of a URL or email.
+- Uses only the Python standard library.
 
 ## Usage
 
 ```bash
 python ioc_sanitizer.py extract sample.txt
+python ioc_sanitizer.py extract sample.txt --grouped
+python ioc_sanitizer.py extract sample.txt --format text
 python ioc_sanitizer.py defang "https://example.com/login?x=1"
 python ioc_sanitizer.py refang "hxxps://example[.]com/login"
+```
+
+## Example Output
+
+```json
+[
+  {
+    "defanged": "198[.]51[.]100[.]24",
+    "type": "ipv4",
+    "value": "198.51.100.24"
+  }
+]
 ```
 
 ## Run Tests
 
 ```bash
-python -m unittest test_ioc_sanitizer.py
+python -m unittest -v
 ```
 
-## Safety Note
+## Continuous Integration
 
-Do not open suspicious URLs or submit private incident data to public repositories.
+The repository includes a GitHub Actions workflow that runs the test suite on every push and pull request.
+
+## Safety
+
+Do not upload private incident data, credentials, tokens, customer logs, or unredacted malware reports to a public repository.
