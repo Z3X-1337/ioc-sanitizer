@@ -1,0 +1,9 @@
+[project]
+name = "ioc-sanitizer"
+version = "1.0.0"
+description = "Defensive IOC extraction, defanging, and refanging utility."
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.pytest.ini_options]
+python_files = ["test_*.py"]
