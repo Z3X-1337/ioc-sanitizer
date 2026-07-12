@@ -1,9 +1,42 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "ioc-sanitizer"
-version = "1.0.0"
-description = "Defensive IOC extraction, defanging, and refanging utility."
+name = "z3x-ioc-sanitizer"
+version = "0.1.0"
+description = "Local IOC extraction, validation, normalization, defanging, and refanging for analyst workflows."
+readme = "README.md"
 requires-python = ">=3.10"
-dependencies = []
+license = { file = "LICENSE" }
+authors = [
+  { name = "Zaid Hijazi" }
+]
+keywords = ["cybersecurity", "ioc", "threat-intelligence", "blue-team", "defang", "incident-response"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Information Technology",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Security",
+]
+
+[project.urls]
+Homepage = "https://github.com/Z3X-1337/ioc-sanitizer"
+Repository = "https://github.com/Z3X-1337/ioc-sanitizer"
+Issues = "https://github.com/Z3X-1337/ioc-sanitizer/issues"
+Changelog = "https://github.com/Z3X-1337/ioc-sanitizer/blob/main/CHANGELOG.md"
+
+[project.scripts]
+ioc-sanitizer = "ioc_sanitizer:main"
+
+[tool.setuptools]
+py-modules = ["ioc_sanitizer"]
 
 [tool.pytest.ini_options]
 python_files = ["test_*.py"]
