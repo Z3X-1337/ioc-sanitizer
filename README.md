@@ -1,15 +1,20 @@
 # IOC Sanitizer
 
-IOC Sanitizer is a defensive Python command-line utility for extracting, validating, normalizing, defanging, and refanging indicators of compromise from analyst notes and sanitized reports.
+[![tests](https://github.com/Z3X-1337/ioc-sanitizer/actions/workflows/tests.yml/badge.svg)](https://github.com/Z3X-1337/ioc-sanitizer/actions/workflows/tests.yml)
+![Python](https://img.shields.io/badge/Python-3.10--3.12-blue)
+![Version](https://img.shields.io/badge/version-0.1.0-informational)
+![License](https://img.shields.io/badge/license-MIT-green)
+
+IOC Sanitizer is a deterministic, local Python command-line utility for extracting, validating, normalizing, defanging, and refanging indicators of compromise from analyst notes and sanitized reports.
 
 ## Supported Indicators
 
-- URLs, including commonly defanged `hxxp` and `hxxps` forms
-- Domains, including `[.]` notation
-- IPv4 addresses
-- IPv6 addresses
-- Email addresses, including `[@]` notation
-- MD5, SHA-1, and SHA-256 hashes
+- URLs, including commonly defanged `hxxp` and `hxxps` forms.
+- Domains, including `[.]` notation.
+- IPv4 addresses.
+- IPv6 addresses.
+- Email addresses, including `[@]` notation.
+- MD5, SHA-1, and SHA-256 hashes.
 
 ## Features
 
@@ -22,14 +27,40 @@ IOC Sanitizer is a defensive Python command-line utility for extracting, validat
 - Preserves the original matched form in `source_form` for analyst traceability.
 - Uses only the Python standard library.
 
+## Installation
+
+Install from a local clone:
+
+```bash
+python -m pip install .
+```
+
+For an isolated CLI installation:
+
+```bash
+pipx install .
+```
+
+The installed command is:
+
+```bash
+ioc-sanitizer --help
+```
+
 ## Usage
 
 ```bash
+ioc-sanitizer extract sample.txt
+ioc-sanitizer extract sample.txt --grouped
+ioc-sanitizer extract sample.txt --format csv
+ioc-sanitizer defang "https://example.com/login?x=1"
+ioc-sanitizer refang "hxxps://example[.]com/login"
+```
+
+The source-file form remains supported:
+
+```bash
 python ioc_sanitizer.py extract sample.txt
-python ioc_sanitizer.py extract sample.txt --grouped
-python ioc_sanitizer.py extract sample.txt --format csv
-python ioc_sanitizer.py defang "https://example.com/login?x=1"
-python ioc_sanitizer.py refang "hxxps://example[.]com/login"
 ```
 
 ## Example Output
@@ -43,17 +74,21 @@ python ioc_sanitizer.py refang "hxxps://example[.]com/login"
 }
 ```
 
-## Run Tests
+## Validation
 
 ```bash
 python -m unittest -v
 ```
 
-The repository currently contains 13 unit and CLI tests.
+The repository currently contains 13 unit and CLI tests. GitHub Actions tests Python 3.10, 3.11, and 3.12, installs the package, and verifies the CLI entry point.
 
-## Continuous Integration
+## Project Governance
 
-GitHub Actions runs the test suite on every push and pull request against Python 3.10, 3.11, and 3.12.
+- [Changelog](CHANGELOG.md)
+- [Roadmap](ROADMAP.md)
+- [MIT License](LICENSE)
+
+The current package version is `0.1.0` and follows Semantic Versioning.
 
 ## Current Limitations
 
